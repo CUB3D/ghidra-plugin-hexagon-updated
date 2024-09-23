@@ -226,6 +226,19 @@ public class DecompileCallback {
 				}
 			}
 
+			ParallelInstructionLanguageHelper parallelHelper = pcodelanguage.getParallelInstructionHelper();
+			if (parallelHelper != null) {
+				try {
+					java.lang.reflect.Method m = parallelHelper.getClass().getMethod("getPcodePacked", PackedEncode.class, Program.class, InstructionContext.class);
+
+						m.invoke(parallelHelper, resultEncoder, program, instr.getInstructionContext());
+						return;
+				} catch (Exception e) {
+					e.printStackTrace();
+					Msg.error(this, "Failed to get hexagon pcode packed: ", e);
+				}
+			}
+
 			instr.getPrototype()
 					.getPcodePacked(resultEncoder, instr.getInstructionContext(),
 						new InstructionPcodeOverride(instr));

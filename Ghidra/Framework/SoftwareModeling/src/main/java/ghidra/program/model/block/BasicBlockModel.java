@@ -63,7 +63,27 @@ public class BasicBlockModel extends SimpleBlockModel {
 
 	@Override
 	protected boolean hasEndOfBlockFlow(Instruction instr) {
-		FlowType flowType = instr.getFlowType();
+		FlowType flowType;
+		if (parallelHelper != null) {
+			if (!parallelHelper.isEndOfParallelInstructionGroup(instr)) {
+				// do not split up a parallel instruction group
+				return false;
+			}
+			try {
+				java.lang.reflect.Method m = parallelHelper.getClass().getMethod("getFlowType", Instruction.class);
+				flowType = (FlowType) m.invoke(parallelHelper, instr);
+			}  catch (Exception e) {
+				e.printStackTrace();
+				flowType = instr.getFlowType();
+			}
+			if (flowType == RefType.FLOW) {
+				// be conservative in response to multiple flows
+				return true;
+			}
+		} else {
+			flowType = instr.getFlowType();
+		}
+
 		if (flowType.isJump() || flowType.isTerminal()) {
 			return true;
 		}
