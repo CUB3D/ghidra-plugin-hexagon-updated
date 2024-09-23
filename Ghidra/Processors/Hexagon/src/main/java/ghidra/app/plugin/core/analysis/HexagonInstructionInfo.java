@@ -149,8 +149,7 @@ class HexagonInstructionInfo {
 				Msg.error(this, "New-value operand wasn't a scalar (" + instr + ")");
 				throw new UnknownInstructionException("New-value operand wasn't an immediate as expected");
 			}
-			Scalar s = (Scalar) obj2;
-			return s.getBigInteger();
+			return ((Scalar) obj2).getBigInteger();
 		}
 		return null;
 	}

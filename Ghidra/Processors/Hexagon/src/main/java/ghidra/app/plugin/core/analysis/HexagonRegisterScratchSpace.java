@@ -32,7 +32,7 @@ class HexagonRegisterScratchSpace {
 
 		for (int i = 0; i < numSlots; i += 2) {
 			Address uniq = uniqueFactory.getNextUniqueAddress();
-			scratch[i + 0] = uniq.add(0);
+			scratch[i] = uniq.add(0);
 			scratch[i + 1] = uniq.add(4);
 		}
 	}

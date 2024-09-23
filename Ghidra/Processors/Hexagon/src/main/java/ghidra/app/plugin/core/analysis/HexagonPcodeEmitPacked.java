@@ -25,12 +25,10 @@ import java.util.List;
 import java.util.Set;
 
 import ghidra.app.decompiler.DecompileCallback;
-import ghidra.app.plugin.processors.sleigh.PcodeEmitPacked;
 import ghidra.app.util.PseudoInstruction;
 import ghidra.program.model.address.Address;
 import ghidra.program.model.address.AddressOverflowException;
 import ghidra.program.model.address.AddressSet;
-import ghidra.program.model.address.AddressSpace;
 import ghidra.program.model.lang.InstructionContext;
 import ghidra.program.model.lang.InstructionPrototype;
 import ghidra.program.model.lang.InsufficientBytesException;
@@ -44,9 +42,6 @@ import ghidra.program.model.listing.InstructionIterator;
 import ghidra.program.model.listing.Program;
 import ghidra.program.model.pcode.*;
 import ghidra.util.Msg;
-
-import static ghidra.program.model.pcode.AttributeId.ATTRIB_OFF;
-import static ghidra.program.model.pcode.AttributeId.ATTRIB_OFFSET;
 
 public class HexagonPcodeEmitPacked {
 
@@ -148,7 +143,7 @@ public class HexagonPcodeEmitPacked {
 //	}
 
 void writePackedBytes(PackedEncode enc, List<PcodeOp> pcode) throws IOException {
-	DecompileCallback.encodeInstruction(enc, minAddr, (PcodeOp[]) pcode.toArray(), (int) packetSize, 0, uniqueFactory.getAddressFactory());
+	DecompileCallback.encodeInstruction(enc, minAddr, pcode.toArray(new PcodeOp[0]), (int) packetSize, 0, uniqueFactory.getAddressFactory());
 //		enc.openElement(ElementId.ELEM_INST);
 //		enc.writeSignedInteger(ATTRIB_OFFSET, packetSize);
 //		enc.writeSpace(ATTRIB_OFFSET, minAddr.getAddressSpace());
@@ -209,7 +204,7 @@ void writePackedBytes(PackedEncode enc, List<PcodeOp> pcode) throws IOException 
 
 	HexagonExternalBranch getBranchInfo(Instruction instr, int branchNoInInsn) {
 		for (HexagonExternalBranch b : branches) {
-			if (b.insnAddress.equals(instr.getAddress()) && b.branchNoInInsn == branchNoInInsn) {
+			if (b.insnAddress.equals(instr.getAddress()) && b.branchNoInInstruction == branchNoInInsn) {
 				return b;
 			}
 		}
@@ -596,7 +591,7 @@ void writePackedBytes(PackedEncode enc, List<PcodeOp> pcode) throws IOException 
 
 		autoAndPredicatesWritten = new HashSet<>();
 
-		final_pcode = new ArrayList<PcodeOp>();
+		final_pcode = new ArrayList<>();
 
 		//
 		// General strategy is similar to binja-hexagon
@@ -735,7 +730,7 @@ void writePackedBytes(PackedEncode enc, List<PcodeOp> pcode) throws IOException 
 			throws UnknownInstructionException {
 		try {
 			writePackedBytes(enc, getPcode(context, uniqueFactory));
-			Msg.debug(this, "GPP ok");
+			//Msg.debug(this, "GPP ok");
 		} catch (IOException e) {
 			e.printStackTrace();
 			Msg.debug(this, "Error writing packed bytes: " + e.getMessage());

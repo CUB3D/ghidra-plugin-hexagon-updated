@@ -226,6 +226,7 @@ public class DecompileCallback {
 				}
 			}
 
+			// HX patch start
 			ParallelInstructionLanguageHelper parallelHelper = pcodelanguage.getParallelInstructionHelper();
 			if (parallelHelper != null) {
 				try {
@@ -238,6 +239,7 @@ public class DecompileCallback {
 					Msg.error(this, "Failed to get hexagon pcode packed: ", e);
 				}
 			}
+			// HX patch end
 
 			instr.getPrototype()
 					.getPcodePacked(resultEncoder, instr.getInstructionContext(),

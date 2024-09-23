@@ -357,7 +357,7 @@ public class HexagonInstructionAttributeConstants {
 		//
 		// such instructions both write a predicate and read a predicate in the same
 		// instruction, so they must come before any other instruction in the packet
-		// thats reads that dot-new predicate
+		// that reads that dot-new predicate
 		return NEW_JMP_JUMPS.contains(instr.getMnemonicString());
 	}
 

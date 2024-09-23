@@ -70,7 +70,7 @@ public class ParallelInstructionSuffixFieldFactory extends FieldFactory {
 	}
 
 	/**
-	 * Returns the FactoryField for the given object at index index.
+	 * Returns the FactoryField for the given object at index.
 	 * @param varWidth the amount of variable width spacing for any fields
 	 * before this one.
 	 * @param proxy the object whose properties should be displayed.
@@ -125,7 +125,7 @@ public class ParallelInstructionSuffixFieldFactory extends FieldFactory {
 
 		if (programLoc instanceof ParallelInstructionLocation) {
 			return new FieldLocation(index, fieldNum, 0,
-				((ParallelInstructionLocation) programLoc).getCharOffset());
+				programLoc.getCharOffset());
 		}
 		return null;
 	}

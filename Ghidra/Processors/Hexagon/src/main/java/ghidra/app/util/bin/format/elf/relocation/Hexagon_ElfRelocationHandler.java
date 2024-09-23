@@ -37,7 +37,7 @@ public class Hexagon_ElfRelocationHandler extends ElfRelocationHandler {
 
 	@Override
 	public RelocationResult relocate(ElfRelocationContext elfRelocationContext, ElfRelocation relocation, Address relocationAddress)
-			throws MemoryAccessException, NotFoundException {
+			throws MemoryAccessException {
 
 		ElfHeader elf = elfRelocationContext.getElfHeader();
 		if (elf.e_machine() != ElfConstants.EM_HEXAGON) {

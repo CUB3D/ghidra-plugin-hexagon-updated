@@ -24,11 +24,9 @@ import ghidra.program.model.lang.UnknownInstructionException;
 import ghidra.program.model.listing.Instruction;
 import ghidra.program.model.listing.InstructionIterator;
 import ghidra.program.model.listing.Program;
-import ghidra.program.model.pcode.PackedBytes;
 import ghidra.program.model.pcode.PackedEncode;
 import ghidra.program.model.symbol.FlowType;
 import ghidra.program.model.symbol.RefType;
-import ghidra.util.Msg;
 
 public class HexagonParallelInstructionLanguageHelper implements ParallelInstructionLanguageHelper {
 	@Override
@@ -48,10 +46,15 @@ public class HexagonParallelInstructionLanguageHelper implements ParallelInstruc
 		return null;
 	}
 
-	//TODO
 	@Override
-	public boolean isParallelInstruction(Instruction instruction) {
-		return true;
+	public boolean isParallelInstruction(Instruction instr) {
+		BigInteger pkt_start = startPacket(instr);
+		if (pkt_start == null) {
+			// not yet analyzed
+			return false;
+		}
+		// if this inst is after start then yes
+		return instr.getAddress().add(instr.getLength()).getOffsetAsBigInteger().compareTo(pkt_start) > 0;
 	}
 
 	public static BigInteger nextPacket(Instruction instr) {

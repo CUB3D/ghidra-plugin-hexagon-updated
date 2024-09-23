@@ -29,10 +29,10 @@ class HexagonExternalBranch {
 	Varnode destVn;
 	Varnode condVn;
 	boolean hasConditional;
-	int branchNoInInsn;
+	int branchNoInInstruction;
 
 	HexagonExternalBranch(HexagonPcodeEmitPacked emit, Instruction instr, int opcode, Varnode destVn,
-			boolean hasConditional, int branchNoInInsn, boolean handleFlowOverride) {
+			boolean hasConditional, int branchNoInInstruction, boolean handleFlowOverride) {
 		insnAddress = instr.getAddress();
 		if (handleFlowOverride) {
 			this.override = instr.getFlowOverride();
@@ -50,8 +50,8 @@ class HexagonExternalBranch {
 			this.destVn = destVn;
 		}
 		this.hasConditional = hasConditional;
-		this.branchNoInInsn = branchNoInInsn;
-		if (branchNoInInsn > 0) {
+		this.branchNoInInstruction = branchNoInInstruction;
+		if (branchNoInInstruction > 0) {
 			this.override = FlowOverride.NONE;
 		}
 	}
