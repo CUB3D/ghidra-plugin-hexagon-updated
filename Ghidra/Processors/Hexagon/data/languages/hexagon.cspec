@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <compiler_spec>
-  <spacebase name="gp" register="C11" space="ram"/>
+  <spacebase name="gp" register="C11_GP" space="ram"/>
   <global>
     <range space="ram"/>
     <range space="gp"/>
@@ -169,7 +169,7 @@
         <register name="R26"/>
         <register name="R29"/> <!-- SP -->
         <register name="R30"/> <!-- FP -->
-        <register name="C11"/> <!-- GP -->
+        <register name="C11_GP"/> <!-- GP -->
       </unaffected>
       <killedbycall>
         <register name="R0"/>

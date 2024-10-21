@@ -25407,7 +25407,11 @@ gp: reloc is epsilon [ reloc = 0; ] {
 <done_4>
 }
 
-:S4_pstorerinewfnew_io S4_pstorerinewfnew_io_Pv4 S4_pstorerinewfnew_io_Rs32 S4_pstorerinewfnew_io_Nt8 S4_pstorerinewfnew_io_u6_2 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 0 & b11 = 0 & b12 = 1 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 0 & S4_pstorerinewfnew_io_Pv4 & S4_pstorerinewfnew_io_Rs32 & S4_pstorerinewfnew_io_Nt8 & S4_pstorerinewfnew_io_u6_2 & hasnew = 0                      unimpl
+define pcodeop __unimpl__S4_pstorerinewfnew_io;
+
+:S4_pstorerinewfnew_io S4_pstorerinewfnew_io_Pv4 S4_pstorerinewfnew_io_Rs32 S4_pstorerinewfnew_io_Nt8 S4_pstorerinewfnew_io_u6_2 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 0 & b11 = 0 & b12 = 1 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 0 & S4_pstorerinewfnew_io_Pv4 & S4_pstorerinewfnew_io_Rs32 & S4_pstorerinewfnew_io_Nt8 & S4_pstorerinewfnew_io_u6_2 & hasnew = 0 {
+__unimpl__S4_pstorerinewfnew_io(S4_pstorerinewfnew_io_Pv4, S4_pstorerinewfnew_io_Rs32, S4_pstorerinewfnew_io_u6_2);
+}
 
 :S4_pstorerinewfnew_io S4_pstorerinewfnew_io_Pv4 S4_pstorerinewfnew_io_Rs32 dotnewreg S4_pstorerinewfnew_io_u6_2 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 0 & b11 = 0 & b12 = 1 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 0 & S4_pstorerinewfnew_io_Pv4 & S4_pstorerinewfnew_io_Rs32 & S4_pstorerinewfnew_io_Nt8 & S4_pstorerinewfnew_io_u6_2 & dotnewreg {
   local EA:4;
@@ -25853,7 +25857,11 @@ gp: reloc is epsilon [ reloc = 0; ] {
 <done_5>
 }
 
-:S4_pstorerbnewtnew_io S4_pstorerbnewtnew_io_Pv4 S4_pstorerbnewtnew_io_Rs32 S4_pstorerbnewtnew_io_Nt8 S4_pstorerbnewtnew_io_u6_0 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 0 & b11 = 0 & b12 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 0 & S4_pstorerbnewtnew_io_Pv4 & S4_pstorerbnewtnew_io_Rs32 & S4_pstorerbnewtnew_io_Nt8 & S4_pstorerbnewtnew_io_u6_0 & hasnew = 0                      unimpl
+define pcodeop __unimpl__S4_pstorerbnewtnew_io;
+
+:S4_pstorerbnewtnew_io S4_pstorerbnewtnew_io_Pv4 S4_pstorerbnewtnew_io_Rs32 S4_pstorerbnewtnew_io_Nt8 S4_pstorerbnewtnew_io_u6_0 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 0 & b11 = 0 & b12 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 0 & S4_pstorerbnewtnew_io_Pv4 & S4_pstorerbnewtnew_io_Rs32 & S4_pstorerbnewtnew_io_Nt8 & S4_pstorerbnewtnew_io_u6_0 & hasnew = 0 {
+__unimpl__S4_pstorerbnewtnew_io(S4_pstorerbnewtnew_io_Pv4, S4_pstorerbnewtnew_io_Rs32, S4_pstorerbnewtnew_io_u6_0);
+}
 
 :S4_pstorerbnewtnew_io S4_pstorerbnewtnew_io_Pv4 S4_pstorerbnewtnew_io_Rs32 dotnewreg S4_pstorerbnewtnew_io_u6_0 is phase = 1 & Parse != 0b00 & subinsn = 0 & b2 = 0 & b11 = 0 & b12 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 1 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 1 & b31 = 0 & S4_pstorerbnewtnew_io_Pv4 & S4_pstorerbnewtnew_io_Rs32 & S4_pstorerbnewtnew_io_Nt8 & S4_pstorerbnewtnew_io_u6_0 & dotnewreg {
   local EA:4;
@@ -26573,7 +26581,11 @@ gp: reloc is epsilon [ reloc = 0; ] {
 <done_5>
 }
 
-:S4_pstorerhnewfnew_rr S4_pstorerhnewfnew_rr_Pv4 S4_pstorerhnewfnew_rr_Rs32 S4_pstorerhnewfnew_rr_Ru32 S4_pstorerhnewfnew_rr_Nt8 S4_pstorerhnewfnew_rr_u2 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b3 = 1 & b4 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & S4_pstorerhnewfnew_rr_Pv4 & S4_pstorerhnewfnew_rr_Rs32 & S4_pstorerhnewfnew_rr_Ru32 & S4_pstorerhnewfnew_rr_Nt8 & S4_pstorerhnewfnew_rr_u2 & hasnew = 0                      unimpl
+define pcodeop __unimpl__S4_pstorerhnewfnew_rr;
+
+:S4_pstorerhnewfnew_rr S4_pstorerhnewfnew_rr_Pv4 S4_pstorerhnewfnew_rr_Rs32 S4_pstorerhnewfnew_rr_Ru32 S4_pstorerhnewfnew_rr_Nt8 S4_pstorerhnewfnew_rr_u2 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b3 = 1 & b4 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & S4_pstorerhnewfnew_rr_Pv4 & S4_pstorerhnewfnew_rr_Rs32 & S4_pstorerhnewfnew_rr_Ru32 & S4_pstorerhnewfnew_rr_Nt8 & S4_pstorerhnewfnew_rr_u2 & hasnew = 0                     {
+__unimpl__S4_pstorerhnewfnew_rr(S4_pstorerhnewfnew_rr_Pv4, S4_pstorerhnewfnew_rr_Rs32, S4_pstorerhnewfnew_rr_Ru32);
+}
 
 :S4_pstorerhnewfnew_rr S4_pstorerhnewfnew_rr_Pv4 S4_pstorerhnewfnew_rr_Rs32 S4_pstorerhnewfnew_rr_Ru32 dotnewreg S4_pstorerhnewfnew_rr_u2 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b3 = 1 & b4 = 0 & b21 = 1 & b22 = 0 & b23 = 1 & b24 = 1 & b25 = 1 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 1 & b30 = 0 & b31 = 0 & S4_pstorerhnewfnew_rr_Pv4 & S4_pstorerhnewfnew_rr_Rs32 & S4_pstorerhnewfnew_rr_Ru32 & S4_pstorerhnewfnew_rr_Nt8 & S4_pstorerhnewfnew_rr_u2 & dotnewreg {
   local EA:4;
@@ -41704,7 +41716,11 @@ gp: reloc is epsilon [ reloc = 0; ] {
 
 :A2_negsat A2_negsat_Rd32 A2_negsat_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 1 & b7 = 1 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & A2_negsat_Rd32 & A2_negsat_Rs32 unimpl
 
-:A2_abs A2_abs_Rd32 A2_abs_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 1 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & A2_abs_Rd32 & A2_abs_Rs32 unimpl
+define pcodeop __unimpl__A2_abs;
+
+:A2_abs A2_abs_Rd32 A2_abs_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 1 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & A2_abs_Rd32 & A2_abs_Rs32 {
+__unimpl__A2_abs(A2_abs_Rd32, A2_abs_Rs32);
+}
 
 :A2_abssat A2_abssat_Rd32 A2_abssat_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 0 & b7 = 1 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & A2_abssat_Rd32 & A2_abssat_Rs32 unimpl
 
@@ -41716,7 +41732,11 @@ gp: reloc is epsilon [ reloc = 0; ] {
   A2_negp_Rdd32 = tmp0;
 }
 
-:A2_absp A2_absp_Rdd32 A2_absp_Rss32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 1 & b7 = 1 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & A2_absp_Rdd32 & A2_absp_Rss32 unimpl
+define pcodeop __unimpl__A2_absp;
+
+:A2_absp A2_absp_Rdd32 A2_absp_Rss32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 1 & b7 = 1 & b21 = 0 & b22 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & A2_absp_Rdd32 & A2_absp_Rss32 {
+__unimpl__A2_absp(A2_absp_Rdd32, A2_absp_Rss32);
+}
 
 :A2_max A2_max_Rd32 A2_max_Rs32 A2_max_Rt32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b7 = 0 & b21 = 0 & b22 = 1 & b23 = 1 & b24 = 1 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 1 & b29 = 0 & b30 = 1 & b31 = 1 & A2_max_Rd32 & A2_max_Rs32 & A2_max_Rt32 {
   local tmp0:1;
@@ -61236,7 +61256,11 @@ gp: reloc is epsilon [ reloc = 0; ] {
 
 :F2_conv_w2sf F2_conv_w2sf_Rd32 F2_conv_w2sf_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 0 & b7 = 0 & b21 = 0 & b22 = 1 & b23 = 0 & b24 = 1 & b25 = 1 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & F2_conv_w2sf_Rd32 & F2_conv_w2sf_Rs32 unimpl
 
-:F2_conv_w2df F2_conv_w2df_Rdd32 F2_conv_w2df_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 1 & b7 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & F2_conv_w2df_Rdd32 & F2_conv_w2df_Rs32 unimpl
+define pcodeop __unimpl__F2_conv_w2df;
+
+:F2_conv_w2df F2_conv_w2df_Rdd32 F2_conv_w2df_Rs32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 0 & b6 = 1 & b7 = 0 & b23 = 1 & b24 = 0 & b25 = 0 & b26 = 1 & b27 = 0 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & F2_conv_w2df_Rdd32 & F2_conv_w2df_Rs32 {
+__unimpl__F2_conv_w2df(F2_conv_w2df_Rdd32, F2_conv_w2df_Rs32);
+}
 
 :F2_conv_ud2sf F2_conv_ud2sf_Rd32 F2_conv_ud2sf_Rss32 is phase = 1 & immext = 0xffffffff & Parse != 0b00 & subinsn = 0 & b5 = 1 & b6 = 0 & b7 = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 0 & b30 = 0 & b31 = 1 & F2_conv_ud2sf_Rd32 & F2_conv_ud2sf_Rss32 unimpl
 
