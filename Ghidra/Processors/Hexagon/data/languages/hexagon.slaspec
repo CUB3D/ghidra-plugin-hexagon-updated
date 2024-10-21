@@ -23,20 +23,20 @@ define register offset=0x000 size=4 [
   R16  R17  R18  R19  R20  R21  R22  R23
   R24  R25  R26  R27  R28  R29  R30  R31
   C0   C1   C2   C3   C4   C5   C6   C7
-  C8   C9   C10  C11  C12  C13  C14  C15
+  C8_USR   C9   C10_UGP  C11_GP  C12  C13  C14  C15
   C16  C17  C18  C19  C20  C21  C22  C23
   C24  C25  C26  C27  C28  C29  C30  C31
   G0   G1   G2   G3   G4   G5   G6   G7
   G8   G9   G10  G11  G12  G13  G14  G15
   G16  G17  G18  G19  G20  G21  G22  G23
   G24  G25  G26  G27  G28  G29  G30  G31
-  S0   S1   S2   S3   S4   S5   S6   S7
-  S8   S9   S10  S11  S12  S13  S14  S15
-  S16  S17  S18  S19  S20  S21  S22  S23
-  S24  S25  S26  S27  S28  S29  S30  S31
+  S0_SGP0   S1   S2_STID   S3_ELR   S4   S5   S6_SSR   S7_CCR
+  S8_HTID   S9_BADVA   S10  S11  S12  S13  S14  S15
+  S16  S17_MODECTL  S18_SYSCFG  S19_EVB  S20  S21  S22  S23
+  S24  S25  S26  S27  S28_DIAG  S29_REV  S30  S31
   S32  S33  S34  S35  S36  S37  S38  S39
   S40  S41  S42  S43  S44  S45  S46  S47
-  S48  S49  S50  S51  S52  S53  S54  S55
+  S48  S49  S50  S51  S52  S53_PPMUCFG  S54  S55
   S56  S57  S58  S59  S60  S61  S62  S63
   S64  S65  S66  S67  S68  S69  S70  S71
   S72  S73  S74  S75  S76  S77  S78  S79
@@ -9404,7 +9404,7 @@ attach variables [
   A2_tfrrcr_Cd32
 ] [
   C0  C1  C2  C3  C4  C5  C6  C7
-  C8  C9  C10 C11 C12 C13 C14 C15
+  C8_USR  C9  C10_UGP C11_GP C12 C13 C14 C15
   C16 C17 C18 C19 C20 C21 C22 C23
   C24 C25 C26 C27 C28 C29 C30 C31
 ];
@@ -9443,13 +9443,13 @@ attach variables [
   Y2_tfrscrr_Ss128
   Y2_tfrsrcr_Sd128
 ] [
-  S0   S1   S2   S3   S4   S5   S6   S7
-  S8   S9   S10  S11  S12  S13  S14  S15
-  S16  S17  S18  S19  S20  S21  S22  S23
-  S24  S25  S26  S27  S28  S29  S30  S31
+  S0_SGP0   S1   S2_STID   S3_ELR   S4   S5   S6_SSR   S7_CCR
+  S8_HTID   S9_BADVA   S10  S11  S12  S13  S14  S15
+  S16  S17_MODECTL  S18_SYSCFG  S19_EVB  S20  S21  S22  S23
+  S24  S25  S26  S27  S28_DIAG  S29_REV  S30  S31
   S32  S33  S34  S35  S36  S37  S38  S39
   S40  S41  S42  S43  S44  S45  S46  S47
-  S48  S49  S50  S51  S52  S53  S54  S55
+  S48  S49  S50  S51  S52  S53_PPMUCFG  S54  S55
   S56  S57  S58  S59  S60  S61  S62  S63
   S64  S65  S66  S67  S68  S69  S70  S71
   S72  S73  S74  S75  S76  S77  S78  S79
@@ -12227,14 +12227,14 @@ dotnewreg: reloc is hasnew = 1 [ reloc = dotnew * 4; ] { export *[register]:4 re
 :^instruction is instruction & phase = 0 & endloop=1 [ phase = 1; ] {
   build instruction;
   local tmp0:1;
-  tmp0 = zext(C8[8,2]);
+  tmp0 = zext(C8_USR[8,2]);
   local tmp1:1;
   tmp1 = tmp0;
   if (tmp1) goto <t_branch_3>;
   goto <done_3>;
 <t_branch_3>
   local tmp3:1;
-  tmp3 = zext(C8[8,2]);
+  tmp3 = zext(C8_USR[8,2]);
   local tmp4:4;
   tmp4 = 2;
   local tmp5:4;
@@ -12249,7 +12249,7 @@ dotnewreg: reloc is hasnew = 1 [ reloc = dotnew * 4; ] { export *[register]:4 re
   goto <done_15>;
 <f_branch_9>
   local tmp9:1;
-  tmp9 = zext(C8[8,2]);
+  tmp9 = zext(C8_USR[8,2]);
   local tmp10:4;
   tmp10 = 1;
   local tmp11:4;
@@ -12268,14 +12268,14 @@ dotnewreg: reloc is hasnew = 1 [ reloc = dotnew * 4; ] { export *[register]:4 re
 <done_15>
 #<done_9>
   local tmp16:1;
-  tmp16 = zext(C8[8,2]);
+  tmp16 = zext(C8_USR[8,2]);
   local tmp17:4;
   tmp17 = 1;
   local tmp18:4;
   tmp18 = zext(tmp16);
   local tmp19:4;
   tmp19 = tmp18 - tmp17;
-  C8[8,2] = tmp19;
+  C8_USR[8,2] = tmp19;
 #  goto <done_3>;
 <done_3>
   local tmp20:4;
@@ -12321,14 +12321,14 @@ dotnewreg: reloc is hasnew = 1 [ reloc = dotnew * 4; ] { export *[register]:4 re
 :^instruction is instruction & phase = 0 & endloop=3 [ phase = 1; ] {
   build instruction;
   local tmp0:1;
-  tmp0 = zext(C8[8,2]);
+  tmp0 = zext(C8_USR[8,2]);
   local tmp1:1;
   tmp1 = tmp0;
   if (tmp1) goto <t_branch_3>;
   goto <done_3>;
 <t_branch_3>
   local tmp3:1;
-  tmp3 = zext(C8[8,2]);
+  tmp3 = zext(C8_USR[8,2]);
   local tmp4:4;
   tmp4 = 2;
   local tmp5:4;
@@ -12343,7 +12343,7 @@ dotnewreg: reloc is hasnew = 1 [ reloc = dotnew * 4; ] { export *[register]:4 re
   goto <done_9>;
 <f_branch_9>
   local tmp9:1;
-  tmp9 = zext(C8[8,2]);
+  tmp9 = zext(C8_USR[8,2]);
   local tmp10:4;
   tmp10 = 1;
   local tmp11:4;
@@ -12362,14 +12362,14 @@ dotnewreg: reloc is hasnew = 1 [ reloc = dotnew * 4; ] { export *[register]:4 re
 <done_15>
 <done_9>
   local tmp16:1;
-  tmp16 = zext(C8[8,2]);
+  tmp16 = zext(C8_USR[8,2]);
   local tmp17:4;
   tmp17 = 1;
   local tmp18:4;
   tmp18 = zext(tmp16);
   local tmp19:4;
   tmp19 = tmp18 - tmp17;
-  C8[8,2] = tmp19;
+  C8_USR[8,2] = tmp19;
   goto <done_3>;
 <done_3>
   local tmp20:4;
@@ -16583,7 +16583,7 @@ gp: reloc is epsilon [ reloc = 0; ] {
   C1 = J2_loop0r_Rs32;
   local tmp0:4;
   tmp0 = 0;
-  C8[8,2] = tmp0;
+  C8_USR[8,2] = tmp0;
 }
 
 :J2_loop1r J2_loop1r_Rs32 J2_loop1r_r7_2 is phase = 1 & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 0 & b25 = 0 & b26 = 0 & b27 = 0 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & J2_loop1r_Rs32 & J2_loop1r_r7_2 {
@@ -16596,7 +16596,7 @@ gp: reloc is epsilon [ reloc = 0; ] {
   C1 = J2_loop0i_U10;
   local tmp0:4;
   tmp0 = 0;
-  C8[8,2] = tmp0;
+  C8_USR[8,2] = tmp0;
 }
 
 :J2_loop1i J2_loop1i_r7_2 J2_loop1i_U10 is phase = 1 & Parse != 0b00 & subinsn = 0 & b21 = 1 & b22 = 0 & b23 = 0 & b24 = 1 & b25 = 0 & b26 = 0 & b27 = 1 & b28 = 0 & b29 = 1 & b30 = 1 & b31 = 0 & J2_loop1i_r7_2 & J2_loop1i_U10 {
@@ -16609,7 +16609,7 @@ gp: reloc is epsilon [ reloc = 0; ] {
   C1 = J2_ploop1sr_Rs32;
   local tmp0:4;
   tmp0 = 1;
-  C8[8,2] = tmp0;
+  C8_USR[8,2] = tmp0;
   local tmp1:4;
   tmp1 = 0;
   P3 = tmp1:1;
@@ -16620,7 +16620,7 @@ gp: reloc is epsilon [ reloc = 0; ] {
   C1 = J2_ploop1si_U10;
   local tmp0:4;
   tmp0 = 1;
-  C8[8,2] = tmp0;
+  C8_USR[8,2] = tmp0;
   local tmp1:4;
   tmp1 = 0;
   P3 = tmp1:1;
@@ -16631,7 +16631,7 @@ gp: reloc is epsilon [ reloc = 0; ] {
   C1 = J2_ploop2sr_Rs32;
   local tmp0:4;
   tmp0 = 2;
-  C8[8,2] = tmp0;
+  C8_USR[8,2] = tmp0;
   local tmp1:4;
   tmp1 = 0;
   P3 = tmp1:1;
@@ -16642,7 +16642,7 @@ gp: reloc is epsilon [ reloc = 0; ] {
   C1 = J2_ploop2si_U10;
   local tmp0:4;
   tmp0 = 2;
-  C8[8,2] = tmp0;
+  C8_USR[8,2] = tmp0;
   local tmp1:4;
   tmp1 = 0;
   P3 = tmp1:1;
@@ -16653,7 +16653,7 @@ gp: reloc is epsilon [ reloc = 0; ] {
   C1 = J2_ploop3sr_Rs32;
   local tmp0:4;
   tmp0 = 3;
-  C8[8,2] = tmp0;
+  C8_USR[8,2] = tmp0;
   local tmp1:4;
   tmp1 = 0;
   P3 = tmp1:1;
@@ -16664,7 +16664,7 @@ gp: reloc is epsilon [ reloc = 0; ] {
   C1 = J2_ploop3si_U10;
   local tmp0:4;
   tmp0 = 3;
-  C8[8,2] = tmp0;
+  C8_USR[8,2] = tmp0;
   local tmp1:4;
   tmp1 = 0;
   P3 = tmp1:1;
