@@ -130,6 +130,20 @@ public class SimpleDestReferenceIterator implements CodeBlockReferenceIterator {
     		if (!(refType.isFlow()))
     			continue;
     		
+		// HX patch start
+		ghidra.program.model.lang.ParallelInstructionLanguageHelper parallelHelper = model.getProgram().getLanguage().getParallelInstructionHelper();
+		if (parallelHelper != null) {
+			Instruction inst = model.getProgram().getListing().getInstructionAt(ref.getFromAddress());
+			if (!parallelHelper.isEndOfParallelInstructionGroup(inst)) {
+				// ignore fallthrough references unless this is the last
+				// instruction in a parallel instruction group
+				if (refType == RefType.FALL_THROUGH) {
+					continue;
+				}
+			}
+		}
+		// HX patch end
+
     		// Handle possible indirection
     		// Indirect flow should be to a data pointer which references code.
     		if (refType == RefType.INDIRECTION) {

@@ -91,3 +91,5 @@ core.*
 # python files
 *.egg-info
 __pycache__
+
+result

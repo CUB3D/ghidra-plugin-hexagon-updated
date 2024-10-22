@@ -75,6 +75,8 @@ public class SimpleBlockModel implements CodeBlockModel {
 
 	protected static final boolean followIndirectFlows = true;
 
+	protected ghidra.program.model.lang.ParallelInstructionLanguageHelper parallelHelper;
+
 	/**
 	 * Construct a SimpleBlockModel on a program.
 	 * Externals will be excluded.
@@ -82,6 +84,7 @@ public class SimpleBlockModel implements CodeBlockModel {
 	 */
 	public SimpleBlockModel(Program program) {
 		this(program, false);
+		parallelHelper = program.getLanguage().getParallelInstructionHelper();
 	}
 
 	/**
@@ -95,6 +98,7 @@ public class SimpleBlockModel implements CodeBlockModel {
 		listing = program.getListing();
 		referenceMgr = program.getReferenceManager();
 		foundBlockMap = new AddressObjectMap();
+		parallelHelper = program.getLanguage().getParallelInstructionHelper();
 	}
 
 	/**
@@ -174,10 +178,24 @@ public class SimpleBlockModel implements CodeBlockModel {
 				break;
 			}
 			Instruction nextInstr = listing.getInstructionAt(fallThru);
-
-			if (nextInstr == null || symTable.hasSymbol(fallThru)) {
+			
+			if (nextInstr == null) {
 				break;
 			}
+
+			// HX patch start
+			boolean canTerminateForSymbol = true;
+			if (parallelHelper != null) {
+				// we cannot terminate the codeblock if the instruction is in
+				// the middle of a group
+				canTerminateForSymbol = parallelHelper.isEndOfParallelInstructionGroup(instr);
+			}
+
+			if (canTerminateForSymbol && symTable.hasSymbol(fallThru)) {
+				break;
+			}
+			// HX patch end
+
 			instr = nextInstr;
 			end = instr.getMaxAddress();
 		}
@@ -241,7 +259,32 @@ public class SimpleBlockModel implements CodeBlockModel {
 	 */
 	protected boolean hasEndOfBlockFlow(Instruction instr) {
 
-		if (instr.getFlowType() != RefType.FALL_THROUGH) {
+		// HX patch start
+		FlowType flowType;
+		if (parallelHelper != null) {
+			if (!parallelHelper.isEndOfParallelInstructionGroup(instr)) {
+				// do not split up a parallel instruction group
+				return false;
+			}
+
+			try {
+				java.lang.reflect.Method m = parallelHelper.getClass().getMethod("getFlowType", Instruction.class);
+				flowType = (FlowType) m.invoke(parallelHelper, instr);
+				if (flowType == RefType.FLOW) {
+					// be conservative in response to multiple flows
+					return true;
+				}
+			}  catch (Exception e) {
+				e.printStackTrace();
+				Msg.error(this, "Failed to get flow type.", e);
+				flowType = instr.getFlowType();
+			}
+		} else {
+			flowType = instr.getFlowType();
+		}
+		//HX patch end
+
+		if (flowType != RefType.FALL_THROUGH) {
 			return true;
 		}
 		return referenceMgr.hasFlowReferencesFrom(instr.getMinAddress());
@@ -553,17 +596,33 @@ public class SimpleBlockModel implements CodeBlockModel {
 		Instruction instr = listing.getInstructionContaining(block.getMaxAddress());
 		if (instr != null) {
 
-			// search backwards until a non-delay slot instruction is found
-			while (instr.isInDelaySlot()) {
-				Address fallFrom = instr.getFallFrom();
-				if (fallFrom == null) {
-					Msg.warn(this, "WARNING: Invalid delay slot instruction found at " +
-						instr.getMinAddress());
-					break;
+			// HX patch start
+			FlowType flowType;
+			if (parallelHelper != null) {
+				assert parallelHelper.isEndOfParallelInstructionGroup(instr);
+				try {
+					java.lang.reflect.Method m = parallelHelper.getClass().getMethod("getFlowType", Instruction.class);
+					flowType = (FlowType) m.invoke(parallelHelper, instr);
+				}  catch (Exception e) {
+					e.printStackTrace();
+					Msg.error(this, "Failed to get flow type.", e);
+					flowType = instr.getFlowType();
 				}
-				instr = listing.getInstructionContaining(fallFrom);
+				} else {
+
+				// search backwards until a non-delay slot instruction is found
+				while (instr.isInDelaySlot()) {
+					Address fallFrom = instr.getFallFrom();
+					if (fallFrom == null) {
+						Msg.warn(this, "WARNING: Invalid delay slot instruction found at " +
+								instr.getMinAddress());
+						break;
+					}
+					instr = listing.getInstructionContaining(fallFrom);
+				}
+				flowType = instr.getFlowType();
 			}
-			FlowType flowType = instr.getFlowType();
+			// HX patch end
 			if (block.getStartAddresses().length > 1) {
 				// modify flow type to a conditional	
 				if (flowType == RefType.UNCONDITIONAL_CALL) {
