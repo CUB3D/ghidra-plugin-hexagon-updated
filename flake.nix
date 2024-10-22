@@ -13,8 +13,8 @@
         {
           devShells.default = pkgs.mkShell {
             buildInputs = with pkgs; [
-                pkgs.gradle_7
-                pkgs.jdk11
+                pkgs.gradle_8
+                pkgs.jdk21
                 pkgs.gcc
             ];
             shellHook = ''
