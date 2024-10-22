@@ -91,3 +91,5 @@ gradlew.*
 *.log
 core.*
 !core.png
+
+result

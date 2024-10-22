@@ -207,6 +207,10 @@ public class FGController implements ProgramLocationListener, ProgramSelectionLi
 						fieldFactory.setWidth(37);
 						formatModel.updateRow(row);
 					}
+					else if (fieldFactory.getFieldName().equals("Parallel ||")) {
+						fieldFactory.setWidth(37);
+						formatModel.updateRow(row);
+					}
 					else if (isSpacerBeforeLabel(fieldFactory, allRowFactories, col)) {
 						// Magic number based upon default sizes in the FormatManager.  This
 						// value is the width of the Address and Mnemonic fields, minus some

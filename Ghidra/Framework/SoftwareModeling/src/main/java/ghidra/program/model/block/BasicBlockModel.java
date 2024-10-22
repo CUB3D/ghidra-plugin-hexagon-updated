@@ -19,6 +19,7 @@ package ghidra.program.model.block;
 import ghidra.program.model.listing.Instruction;
 import ghidra.program.model.listing.Program;
 import ghidra.program.model.symbol.*;
+import ghidra.util.Msg;
 
 /**
  * This BlockModel implements the Basic block model.
@@ -63,7 +64,31 @@ public class BasicBlockModel extends SimpleBlockModel {
 
 	@Override
 	protected boolean hasEndOfBlockFlow(Instruction instr) {
-		FlowType flowType = instr.getFlowType();
+		// HX patch start
+		FlowType flowType;
+		if (parallelHelper != null) {
+			if (!parallelHelper.isEndOfParallelInstructionGroup(instr)) {
+				// do not split up a parallel instruction group
+				return false;
+			}
+			try {
+				java.lang.reflect.Method m = parallelHelper.getClass().getMethod("getFlowType", Instruction.class);
+				flowType = (FlowType) m.invoke(parallelHelper, instr);
+
+				if (flowType == RefType.FLOW) {
+					// be conservative in response to multiple flows
+					return true;
+				}
+			}  catch (Exception e) {
+				e.printStackTrace();
+				Msg.error(this, "Failed to get flow type.", e);
+				flowType = instr.getFlowType();
+			}
+		} else {
+			flowType = instr.getFlowType();
+		}
+		// HX patch end
+
 		if (flowType.isJump() || flowType.isTerminal()) {
 			return true;
 		}
